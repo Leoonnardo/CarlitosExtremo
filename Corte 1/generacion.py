@@ -15,18 +15,18 @@ id = ["A","B","C","D","E","F","G","H", "I", "J"]
 def creacionTabla():
 
 
-    print('valores X: ',valoresX)
-    print('valores Y: ',valoresY)
+    #print('valores X: ',valoresX)
+    #print('valores Y: ',valoresY)
 
-    print('bits valores x: ',2**num_Bits(valoresX))
-    print('bits valores y: ',2**num_Bits(valoresY))
+    #print('bits valores x: ',2**num_Bits(valoresX))
+    #print('bits valores y: ',2**num_Bits(valoresY))
 
 
     resolucion_deltaX = RXnew / 2**num_Bits(valoresX)
     resolucion_deltaY = RYnew / 2**num_Bits(valoresY)
 
-    print(resolucion_deltaX)
-    print(resolucion_deltaY)
+    #print(resolucion_deltaX)
+    #print(resolucion_deltaY)
 
 
 def creacionTablaX():
@@ -75,9 +75,9 @@ def creacionTablaX():
         fenotipoX.append(round((aX + iX[x] * resolucion), 4))
 
     tablaGeneralX.append(fenotipoX)
-    print(tablaGeneralX)
+    #print(tablaGeneralX)
 
-    return tablaGeneralX[3]
+    return tablaGeneralX
 
 def creacionTablaY():
     tablaGeneralY = []
@@ -124,10 +124,14 @@ def creacionTablaY():
         fenotipoY.append(round((aX + iY[x] * resolucion), 4))
 
     tablaGeneralY.append(fenotipoY)
-    print(tablaGeneralY)
+    #print(tablaGeneralY)
 
-    return tablaGeneralY[3]
-    
+    return tablaGeneralY
+
+
+def definirAptitud(x,y):
+    return
+
 def unirFenotipos(fenotipoX, fenotipoY):
     fenotipos = []
     aptitudes = []
@@ -137,9 +141,11 @@ def unirFenotipos(fenotipoX, fenotipoY):
 
 
     for i in range(0, tam_pob_incial):
-        aptitudes.append(round((cos(cos(fenotipoX[i])).real*cos(cos(fenotipoY[i])).real*(2.718281828459045**(-((fenotipoX[i])**2)-((fenotipoY[i])**2)))),4))
+        aptitudes.append(round((cos(cos(fenotipoX[3][i])).real*cos(cos(fenotipoY[3][i])).real*(2.718281828459045**(-((fenotipoX[3][i])**2)-((fenotipoY[3][i])**2)))),4))
     fenotipos.append(aptitudes)
     
-    print("Fenotipos: ", fenotipos)
+    print("Fenotipos de X: ", fenotipos[0])
+    print("Fenotipos de Y: ",fenotipos[1])
+    print("Aptitudes: ",fenotipos[2])
 
 unirFenotipos(creacionTablaX(), creacionTablaY())
