@@ -1,3 +1,7 @@
+from cmath import cos
+import math
+
+from numpy import euler_gamma, mat
 from main import *
 import random
 
@@ -34,6 +38,7 @@ def creacionTablaX():
     contadorID = 0 
     listaAux = []
     contadorBits = ''
+    poblacion = 0
 
     #Nombre al individuo
     for i in range(0,tam_pob_incial):
@@ -46,14 +51,18 @@ def creacionTablaX():
 
 
     #Generar Genotipo y generar i
-    for x  in range(0,tam_pob_incial):
+    while poblacion < tam_pob_incial:
         for j in range(0, num_Bits(valoresX)):
             randomBits = random.choices((1,0))
             contadorBits = contadorBits + str(randomBits[0])
             listaAux.append(randomBits[0])
+        
+        iXTemporal = binario_to_Decimal(int(contadorBits))
+        if iXTemporal <= 160:
+            poblacion=poblacion+1
+            genotipoX.append(listaAux)
+            iX.append(binario_to_Decimal(int(contadorBits)))
 
-        genotipoX.append(listaAux)
-        iX.append(binario_to_Decimal(int(contadorBits)))
         contadorBits = ''
         listaAux = []
 
@@ -63,10 +72,12 @@ def creacionTablaX():
 
 
     for x in range(0, tam_pob_incial):
-        fenotipoX.append(aX + iX[x] * resolucion)
+        fenotipoX.append(round((aX + iX[x] * resolucion), 4))
 
     tablaGeneralX.append(fenotipoX)
     print(tablaGeneralX)
+
+    return tablaGeneralX[3]
 
 def creacionTablaY():
     tablaGeneralY = []
@@ -76,6 +87,7 @@ def creacionTablaY():
     fenotipoY = [] 
     listaAux = []
     contadorBits = ''
+    poblacion = 0
 
     #Nombre al individuo
     for i in range(0,tam_pob_incial):
@@ -88,14 +100,18 @@ def creacionTablaY():
 
 
     #Generar Genotipo y generar i
-    for x  in range(0,tam_pob_incial):
-        for j in range(0, num_Bits(valoresX)):
+    while poblacion < tam_pob_incial:
+        for j in range(0, num_Bits(valoresY)):
             randomBits = random.choices((1,0))
             contadorBits = contadorBits + str(randomBits[0])
             listaAux.append(randomBits[0])
+        
+        iYTemporal = binario_to_Decimal(int(contadorBits))
+        if iYTemporal <= 160:
+            poblacion=poblacion+1
+            genotipoY.append(listaAux)
+            iY.append(binario_to_Decimal(int(contadorBits)))
 
-        genotipoY.append(listaAux)
-        iY.append(binario_to_Decimal(int(contadorBits)))
         contadorBits = ''
         listaAux = []
 
@@ -105,13 +121,25 @@ def creacionTablaY():
 
 
     for x in range(0, tam_pob_incial):
-        fenotipoY.append(aX + iY[x] * resolucion)
+        fenotipoY.append(round((aX + iY[x] * resolucion), 4))
 
     tablaGeneralY.append(fenotipoY)
     print(tablaGeneralY)
+
+    return tablaGeneralY[3]
     
+def unirFenotipos(fenotipoX, fenotipoY):
+    fenotipos = []
+    aptitudes = []
+
+    fenotipos.append(fenotipoX)
+    fenotipos.append(fenotipoY)
 
 
+    for i in range(0, tam_pob_incial):
+        aptitudes.append(round((cos(cos(fenotipoX[i])).real*cos(cos(fenotipoY[i])).real*(2.718281828459045**(-((fenotipoX[i])**2)-((fenotipoY[i])**2)))),4))
+    fenotipos.append(aptitudes)
+    
+    print("Fenotipos: ", fenotipos)
 
-creacionTablaX()
-creacionTablaY()
+unirFenotipos(creacionTablaX(), creacionTablaY())
