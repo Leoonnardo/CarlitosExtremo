@@ -4,8 +4,6 @@ individuos = unirFenotipos(creacionTablaX(), creacionTablaY())
 
 auxC = [[],[],[]]
 
-individuosOrd = [[],[],[]]
-
 
 def ordenar():
     aux = individuos
@@ -63,9 +61,12 @@ def reemplazar():
     individuos[0] = aux1
     individuos[1] = aux2
     individuos[2] = aux3
-    breakpoint()
+    #breakpoint()
 
 
 
 ordenar()
 reemplazar()
+print("Fenotipos de X: ", individuos[0])
+print("Fenotipos de Y: ", individuos[1])
+print("Aptitudes: ", individuos[2])
