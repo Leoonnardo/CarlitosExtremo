@@ -1,3 +1,5 @@
+from generacion import *
+
 resolucion = 0.005
 x = [-0.4,0.4]
 y = [-0.4,0.4]
@@ -16,8 +18,6 @@ tam_pob_incial = 4
 prob_muta_individual = 0.1
 prob_mut_gen = 0.05
 tam_pob_max = 8
-
-
 
 # Bits de valores
 def num_Bits(valor):
