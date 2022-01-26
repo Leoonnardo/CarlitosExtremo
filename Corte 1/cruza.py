@@ -1,7 +1,5 @@
 from generacion import *
 
-individuos = unirFenotipos(creacionTablaX(), creacionTablaY())
-
 auxC = [[],[],[]]
 
 
@@ -83,8 +81,9 @@ def salaApareamiento():
     #generacion mas apto
     for i in range(1,len(individuos[2])):
         cruzaInd = sacarIndividuo(i)
-        resultado = cruza(fstInd,cruzaInd)
-        print(resultado)
+        resultado1 = cruza(fstInd,cruzaInd)
+        resultado2 = cruza(cruzaInd,fstInd)
+        print(resultado1,resultado2)
 
 
 def cruza(indA,indB):
@@ -93,7 +92,7 @@ def cruza(indA,indB):
     puntoCruzaY = random.randint(0, 7)
     #breakpoint()
     genes1stInd = [indA[0][1],indA[1][1]]
-    genes2ndInd = [indB[0][1],indB[0][1]]
+    genes2ndInd = [indB[0][1],indB[1][1]]
     genesXResultado = cruzarGenes(genes1stInd[0],genes2ndInd[0],puntoCruzaX)
     genesYResultado = cruzarGenes(genes1stInd[1],genes2ndInd[1],puntoCruzaY)
     iteracionX = binarioToDecimal(genesXResultado)
@@ -103,15 +102,6 @@ def cruza(indA,indB):
     aptitud = definirAptitud(fenotipoX,fenotipoY)
     individuo = [nombre,[genesXResultado,genesYResultado],[iteracionX,iteracionY],[fenotipoX,fenotipoY],aptitud]
     return individuo
-
-def binarioToDecimal(binario):
-    breakpoint()
-    contador = 0
-    i = len(binario) - 1
-    while i > 0:
-        contador = contador + ((2**i)*binario[i])
-        i -= 1
-    return contador
 
 def cruzarGenes(genesA,genesB,puntoCruza):
     #breakpoint()

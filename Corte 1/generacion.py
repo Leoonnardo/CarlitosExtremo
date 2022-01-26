@@ -1,130 +1,90 @@
+#enconding: utf-8
 from cmath import cos
 import math
-
 from numpy import euler_gamma, mat
-from main import *
 import random
+
+resolucion = 0.005
+x = [-0.4, 0.4]
+y = [-0.4, 0.4]
+
+RX = abs(x[1] - x[0])
+RY = abs(y[1] - y[0])
+
+limSup = 160
+limInf = 0
+
+aX = x[0]
+aY = y[0]
+numBits = 9
+tam_pob_incial = 6
+prob_muta_individual = 0.1
+prob_mut_gen = 0.05
+tam_pob_max = 8
+delta = RX/256
 
 id = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 
+def generarPoblacionInicial():
+    for i in range(tam_pob_incial):
+        individuo = generarIndividuo(i)
+        print("Individuo: ",individuo[0])
+        print("Genes: ", individuo[1])
+        print("Iteraciones: ", individuo[2])
+        print("Fenotipos: ", individuo[3])
+        print("Aptitudes: ", individuo[4])
 
-def creacionTabla():
-    # print('valores X: ',valoresX)
-    # print('valores Y: ',valoresY)
+def generarIndividuo(iteracion):
+    nombre = id[iteracion]
 
-    # print('bits valores x: ',2**num_Bits(valoresX))
-    # print('bits valores y: ',2**num_Bits(valoresY))
+    terminadoX = False
+    terminadoY = False
+    grupoGenetico = [[],[]]
+    iteraciones = [[],[]]
+    #breakpoint()
+    while((not terminadoX)):
+        if(not terminadoX):
+            genesX = generarGen()
+            iteracionX = binarioToDecimal(genesX)
+            if (iteracionX <= 160 and iteracionX >= 0):
+                terminadoX = True
+                grupoGenetico[0] = genesX
+                iteraciones[0] = iteracionX
+    while(not terminadoY):
+        if (not terminadoY):
+            genesY = generarGen()
+            iteracionY = binarioToDecimal(genesY)
+            if (iteracionY <= 160 and iteracionY >= 0):
+                terminadoY = True
+                grupoGenetico[1] = genesY
+                iteraciones[1] = iteracionY
+    fenotipo = [definirFenotipoX(iteraciones[0]),definirFenotipoY(iteraciones[1])]
+    aptitud = definirAptitud(fenotipo[0],fenotipo[1])
+    individuo = [nombre,grupoGenetico,iteraciones,fenotipo,aptitud]
+    return individuo
 
-    resolucion_deltaX = RXnew / 2 ** num_Bits(valoresX)
-    resolucion_deltaY = RYnew / 2 ** num_Bits(valoresY)
+def definirFenotipoX(i):
+    return aX + i * delta
 
-    # print(resolucion_deltaX)
-    # print(resolucion_deltaY)
+def definirFenotipoY(i):
+    return aY + i * delta
 
+def definirAptitud(x,y):
+    return round((cos(cos(x)).real * cos(cos(y)).real * (2.718281828459045 ** (-((x) ** 2) - ((y) ** 2)))), 4)
 
-def creacionTablaX():
-    tablaGeneralX = []
-    id_X = []
-    genotipoX = []
-    iX = []
-    fenotipoX = []
-    contadorID = 0
-    listaAux = []
-    contadorBits = ''
-    poblacion = 0
+def generarGen():
+    #breakpoint()
+    grupoGen = []
+    for i in range(numBits):
+        gen = random.randint(0,1)
+        grupoGen.append(gen)
+    return grupoGen
 
-    # Nombre al individuo
-    for i in range(0, tam_pob_incial):
-        id_X.append(id[i])
-
-    tablaGeneralX.append(id_X)
-
-    # Generar Genotipo y generar i
-    while poblacion < tam_pob_incial:
-        for j in range(0, num_Bits(valoresX)):
-            randomBits = random.choices((1, 0))
-            contadorBits = contadorBits + str(randomBits[0])
-            listaAux.append(randomBits[0])
-
-        iXTemporal = binario_to_Decimal(int(contadorBits))
-        if iXTemporal <= 160:
-            poblacion = poblacion + 1
-            genotipoX.append(listaAux)
-            iX.append(binario_to_Decimal(int(contadorBits)))
-
-        contadorBits = ''
-        listaAux = []
-
-    tablaGeneralX.append(genotipoX)
-    tablaGeneralX.append(iX)
-
-    for x in range(0, tam_pob_incial):
-        fenotipoX.append(round((aX + iX[x] * resolucion), 4))
-
-    tablaGeneralX.append(fenotipoX)
-    # print(tablaGeneralX)
-
-    return tablaGeneralX
-
-
-def creacionTablaY():
-    tablaGeneralY = []
-    id_Y = []
-    genotipoY = []
-    iY = []
-    fenotipoY = []
-    listaAux = []
-    contadorBits = ''
-    poblacion = 0
-
-    # Nombre al individuo
-    for i in range(0, tam_pob_incial):
-        id_Y.append(id[i])
-
-    tablaGeneralY.append(id_Y)
-
-    # Generar Genotipo y generar i
-    while poblacion < tam_pob_incial:
-        for j in range(0, num_Bits(valoresY)):
-            randomBits = random.choices((1, 0))
-            contadorBits = contadorBits + str(randomBits[0])
-            listaAux.append(randomBits[0])
-
-        iYTemporal = binario_to_Decimal(int(contadorBits))
-        if iYTemporal <= 160:
-            poblacion = poblacion + 1
-            genotipoY.append(listaAux)
-            iY.append(binario_to_Decimal(int(contadorBits)))
-
-        contadorBits = ''
-        listaAux = []
-
-    tablaGeneralY.append(genotipoY)
-    tablaGeneralY.append(iY)
-
-    for x in range(0, tam_pob_incial):
-        fenotipoY.append(round((aX + iY[x] * resolucion), 4))
-
-    tablaGeneralY.append(fenotipoY)
-    # print(tablaGeneralY)
-
-    return tablaGeneralY
-
-
-def unirFenotipos(fenotipoX, fenotipoY):
-    fenotipos = []
-    aptitudes = []
-
-    fenotipos.append(fenotipoX)
-    fenotipos.append(fenotipoY)
-
-    for i in range(0, tam_pob_incial):
-        aptitudes.append(round((cos(cos(fenotipoX[3][i])).real * cos(cos(fenotipoY[3][i])).real * (
-                2.718281828459045 ** (-((fenotipoX[3][i]) ** 2) - ((fenotipoY[3][i]) ** 2)))), 4))
-    fenotipos.append(aptitudes)
-
-    print("Fenotipos de X: ", fenotipos[0])
-    print("Fenotipos de Y: ", fenotipos[1])
-    print("Aptitudes: ", fenotipos[2])
-
-    return fenotipos
+def binarioToDecimal(binario):
+    #breakpoint()
+    contador = 0
+    potencia = len(binario) - 1
+    for i in range(len(binario)):
+        contador = contador + ((2**potencia)*binario[i])
+        potencia -= 1
+    return contador
