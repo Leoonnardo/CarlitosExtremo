@@ -18,6 +18,16 @@ tam_pob_incial = 4
 prob_muta_individual = 0.1
 prob_mut_gen = 0.05
 tam_pob_max = 8
+delta = (x[0]-x[1])/256
+
+def definirFenotipoX(i):
+    return aX + i * delta
+
+def definirFenotipoY(i):
+    return aY + i * delta
+
+def definirAptitud(x,y):
+    return round((cos(cos(x)).real * cos(cos(y)).real * (2.718281828459045 ** (-((x) ** 2) - ((y) ** 2)))), 4)
 
 # Bits de valores
 def num_Bits(valor):
