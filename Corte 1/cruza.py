@@ -1,5 +1,4 @@
 from generacion import *
-
 def ordenar(individuos):
     auxC = []
     aux = individuos
@@ -15,28 +14,29 @@ def ordenar(individuos):
             if i[4] > mayor:
                 mayor = i[4]
                 posicion = individuos.index(i)
-        #breakpoint()
         auxC.append(aux.pop(posicion))
         contador += 1
 
     return auxC
 
-def salaApareamiento(limSupX, limSupY, aX, aY, deltaX, deltaY, lista,numBitsX,numBitsY):
+def salaApareamiento(limSupX, limSupY, aX, aY, deltaX, deltaY, lista,numBitsX,numBitsY, probMutaInd, probMutaGen):
     individuoApto = lista[0]
     nuevos = []
     for i in range(len(lista)):
         if(i != 0):
             nuevo = cruza(aX, aY, deltaX, deltaY, individuoApto, lista[i], numBitsX, numBitsY)
+
             #breakpoint()
-            if((nuevo[2][0] >= 0 and nuevo[2][0] <= limSupX) and (nuevo[2][1] >= 0 and nuevo[2][1] <= limSupY)):
+            if((nuevo[2][0] <= limSupX) and (nuevo[2][1] <= limSupY)):
                 nuevos.append(nuevo)
             nuevo2 = cruza(aX, aY, deltaX, deltaY, individuoApto, lista[i], numBitsX, numBitsY)
             #breakpoint()
-            if ((nuevo2[2][0] >= 0 and nuevo2[2][0] <= limSupX) and (nuevo2[2][1] >= 0 and nuevo2[2][1] <= limSupY)):
+            if ((nuevo2[2][0] <= limSupX) and (nuevo2[2][1] <= limSupY)):
                 nuevos.append(nuevo2)
     lista.extend(nuevos)
     nuevos = ordenar(lista)
-    listar(nuevos)
+
+    return nuevos
 
 
 
