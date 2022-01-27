@@ -21,18 +21,18 @@ def ordenar(individuos):
 
     return auxC
 
-def salaApareamiento(lista,numBits):
+def salaApareamiento(limSupX, limSupY, aX, aY, deltaX, deltaY, lista,numBitsX,numBitsY):
     individuoApto = lista[0]
     nuevos = []
     for i in range(len(lista)):
         if(i != 0):
-            nuevo = cruza(individuoApto, lista[i], numBits)
-            breakpoint()
-            if((nuevo[2][0] >= 0 and nuevo[2][0] <= 160) and (nuevo[2][1] >= 0 and nuevo[2][1] <= 160)):
+            nuevo = cruza(aX, aY, deltaX, deltaY, individuoApto, lista[i], numBitsX, numBitsY)
+            #breakpoint()
+            if((nuevo[2][0] >= 0 and nuevo[2][0] <= limSupX) and (nuevo[2][1] >= 0 and nuevo[2][1] <= limSupY)):
                 nuevos.append(nuevo)
-            nuevo2 = cruza(lista[i], individuoApto, numBits)
-            breakpoint()
-            if ((nuevo2[2][0] >= 0 and nuevo2[2][0] <= 160) and (nuevo2[2][1] >= 0 and nuevo2[2][1] <= 160)):
+            nuevo2 = cruza(aX, aY, deltaX, deltaY, individuoApto, lista[i], numBitsX, numBitsY)
+            #breakpoint()
+            if ((nuevo2[2][0] >= 0 and nuevo2[2][0] <= limSupX) and (nuevo2[2][1] >= 0 and nuevo2[2][1] <= limSupY)):
                 nuevos.append(nuevo2)
     lista.extend(nuevos)
     nuevos = ordenar(lista)
@@ -41,16 +41,16 @@ def salaApareamiento(lista,numBits):
 
 
 
-def cruza(indA,indB,numBits):
+def cruza(aX, aY, deltaX, deltaY, indA,indB,numBitsX, numBitsY):
     nombre = indA[0]+indB[0]
-    puntoCruzaX = random.randint(0, numBits)
-    genesXResultado = cruzarGenes(indA[1][0],indB[1][0],puntoCruzaX,numBits)
+    puntoCruzaX = random.randint(0, numBitsX)
+    genesXResultado = cruzarGenes(indA[1][0],indB[1][0],puntoCruzaX,numBitsX)
     iteracionX = binarioToDecimal(genesXResultado)
-    puntoCruzaY = random.randint(0, numBits)
-    genesYResultado = cruzarGenes(indA[1][1], indB[1][1], puntoCruzaY,numBits)
+    puntoCruzaY = random.randint(0, numBitsY)
+    genesYResultado = cruzarGenes(indA[1][1], indB[1][1], puntoCruzaY,numBitsY)
     iteracionY = binarioToDecimal(genesYResultado)
-    fenotipoX = definirFenotipoX(iteracionX)
-    fenotipoY = definirFenotipoY(iteracionY)
+    fenotipoX = definirFenotipo(aX, iteracionX, deltaX)
+    fenotipoY = definirFenotipo(aY, iteracionY, deltaY)
     aptitud = definirAptitud(fenotipoX,fenotipoY)
     individuo = [nombre,[genesXResultado,genesYResultado],[iteracionX,iteracionY],[fenotipoX,fenotipoY],aptitud]
     return individuo

@@ -4,36 +4,30 @@ import math
 from numpy import euler_gamma, mat
 import random
 
-individuos = []
+def definirBits(numero):
+    #breakpoint()
+    modulos = []
+    while numero != 0:
+        modulo = numero % 2
+        cociente = numero // 2
+        modulos.append(modulo)
+        numero = cociente
+    return len(modulos)
 
-resolucion = 0.005
-x = [-0.4, 0.4]
-y = [-0.4, 0.4]
-
-RX = abs(x[1] - x[0])
-RY = abs(y[1] - y[0])
-
-limSup = 160
-limInf = 0
-
-aX = x[0]
-aY = y[0]
-numBits = 9
-tam_pob_incial = 6
-prob_muta_individual = 0.1
-prob_mut_gen = 0.05
-tam_pob_max = 8
-delta = RX/256
 
 id = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 
-def generarPoblacionInicial():
-    for i in range(tam_pob_incial):
-        individuo = generarIndividuo(i)
+def generarPoblacionInicial(limSupX, limSupY, aX, aY, deltaX, deltaY, poblacionInicial, numBitsX, numBitsY):
+    individuos = []
+
+    for i in range(poblacionInicial):
+        individuo = generarIndividuo(limSupX, limSupY, aX, aY, deltaX, deltaY, i, numBitsX, numBitsY)
         #breakpoint()
         individuos.append(individuo)
 
-def generarIndividuo(iteracion):
+    return individuos
+
+def generarIndividuo(limSupX, limSupY, aX, aY, deltaX, deltaY, iteracion, numBitsX, numBitsY):
     nombre = id[iteracion]
 
     terminadoX = False
@@ -43,35 +37,32 @@ def generarIndividuo(iteracion):
     #breakpoint()
     while((not terminadoX)):
         if(not terminadoX):
-            genesX = generarGen()
+            genesX = generarGen(numBitsX)
             iteracionX = binarioToDecimal(genesX)
-            if (iteracionX <= 160 and iteracionX >= 0):
+            if (iteracionX <= limSupX and iteracionX >= 0):
                 terminadoX = True
                 grupoGenetico[0] = genesX
                 iteraciones[0] = iteracionX
     while(not terminadoY):
         if (not terminadoY):
-            genesY = generarGen()
+            genesY = generarGen(numBitsY)
             iteracionY = binarioToDecimal(genesY)
-            if (iteracionY <= 160 and iteracionY >= 0):
+            if (iteracionY <= limSupY and iteracionY >= 0):
                 terminadoY = True
                 grupoGenetico[1] = genesY
                 iteraciones[1] = iteracionY
-    fenotipo = [definirFenotipoX(iteraciones[0]),definirFenotipoY(iteraciones[1])]
+    fenotipo = [definirFenotipo(aX,iteraciones[0],deltaX),definirFenotipo(aY,iteraciones[1],deltaY)]
     aptitud = definirAptitud(fenotipo[0],fenotipo[1])
     individuo = [nombre,grupoGenetico,iteraciones,fenotipo,aptitud]
     return individuo
 
-def definirFenotipoX(i):
-    return round(aX + i * delta, 4)
-
-def definirFenotipoY(i):
-    return round(aY + i * delta, 4)
+def definirFenotipo(a,i,delta):
+    return a + i * delta
 
 def definirAptitud(x,y):
-    return round((cos(cos(x)).real * cos(cos(y)).real * (2.718281828459045 ** (-((x) ** 2) - ((y) ** 2)))), 4)
+    return (cos(x).real * cos(y).real * (2.718281828459045 ** (-((x) ** 2) - ((y) ** 2))))
 
-def generarGen():
+def generarGen(numBits):
     #breakpoint()
     grupoGen = []
     for i in range(numBits):
