@@ -4,6 +4,8 @@ import math
 from numpy import euler_gamma, mat
 import random
 
+individuos = []
+
 resolucion = 0.005
 x = [-0.4, 0.4]
 y = [-0.4, 0.4]
@@ -28,11 +30,8 @@ id = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 def generarPoblacionInicial():
     for i in range(tam_pob_incial):
         individuo = generarIndividuo(i)
-        print("Individuo: ",individuo[0])
-        print("Genes: ", individuo[1])
-        print("Iteraciones: ", individuo[2])
-        print("Fenotipos: ", individuo[3])
-        print("Aptitudes: ", individuo[4])
+        #breakpoint()
+        individuos.append(individuo)
 
 def generarIndividuo(iteracion):
     nombre = id[iteracion]
@@ -64,10 +63,10 @@ def generarIndividuo(iteracion):
     return individuo
 
 def definirFenotipoX(i):
-    return aX + i * delta
+    return round(aX + i * delta, 4)
 
 def definirFenotipoY(i):
-    return aY + i * delta
+    return round(aY + i * delta, 4)
 
 def definirAptitud(x,y):
     return round((cos(cos(x)).real * cos(cos(y)).real * (2.718281828459045 ** (-((x) ** 2) - ((y) ** 2)))), 4)
@@ -88,3 +87,12 @@ def binarioToDecimal(binario):
         contador = contador + ((2**potencia)*binario[i])
         potencia -= 1
     return contador
+
+def listar(lista):
+    for i in lista:
+        print("Individuo: ", i[0])
+        print("Genes: ", i[1])
+        print("Iteraciones: ", i[2])
+        print("Fenotipos: ", i[3])
+        print("Aptitudes: ", i[4])
+        print("------------------------------------------")
