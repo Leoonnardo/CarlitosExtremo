@@ -2,9 +2,9 @@
 from generacion import *
 from cruza import *
 
-resolucion = 0.005
-x = [5, 8]
-y = [0.4, 0]
+resolucion = 0.001
+x = [5, 7]
+y = [0, 0.5]
 
 RX = abs(x[1] - x[0])
 RY = abs(y[1] - y[0])

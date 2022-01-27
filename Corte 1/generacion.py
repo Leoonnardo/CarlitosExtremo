@@ -1,5 +1,5 @@
 #enconding: utf-8
-from cmath import cos
+from math import cos, e
 import math
 from numpy import euler_gamma, mat
 import random
@@ -60,7 +60,8 @@ def definirFenotipo(a,i,delta):
     return a + i * delta
 
 def definirAptitud(x,y):
-    return (cos(x).real * cos(y).real * (2.718281828459045 ** (-((x) ** 2) - ((y) ** 2))))
+    breakpoint()
+    return cos(x) * cos(y) * (e ** ( ((x*-1)**2) * ((y*-1)**2) ))
 
 def generarGen(numBits):
     #breakpoint()
