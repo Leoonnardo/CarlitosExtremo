@@ -64,12 +64,12 @@ def iniciarGenes(intervaloX1, intervaloX2, intervaloY1, intervaloY2, resolucion,
         print("Mejor: ", individuos[0])
         print("Peor: ", individuos[len(individuos) - 1])
 
-        apMejorAux = individuos[0][len(individuos[0]) - 1]
-        apPeorAux = individuos[len(individuos) - 1][len(individuos[len(individuos) - 1]) - 1]
-        promedioAptitud = (apMejorAux + apPeorAux)/2
+        mejor = individuos[0][4]
+        peor = individuos[-1][4]
+        promedioAptitud = (mejor + peor)/2
 
-        mejoresGeneracion.append(apMejorAux)
-        peoresGeneracion.append(apPeorAux)
+        mejoresGeneracion.append(mejor)
+        peoresGeneracion.append(peor)
         promedioGeneracion.append(promedioAptitud)
         print("Promedio: ", promedioAptitud)
         print("-----------------------------------\n")

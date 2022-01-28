@@ -1,4 +1,4 @@
-from generacion import *
+from mutacion import *
 def ordenar(individuos):
     auxC = []
     aux = individuos
@@ -33,6 +33,10 @@ def salaApareamiento(limSupX, limSupY, aX, aY, deltaX, deltaY, lista,numBitsX,nu
             #breakpoint()
             if ((nuevo2[2][0] <= limSupX) and (nuevo2[2][1] <= limSupY)):
                 nuevos.append(nuevo2)
+
+
+    nuevos = salaSeguimientoMutacion(aX, aY, deltaX, deltaY, limSupX, limSupY, probMutaInd, probMutaGen, nuevos)
+
     lista.extend(nuevos)
     nuevos = ordenar(lista)
 
