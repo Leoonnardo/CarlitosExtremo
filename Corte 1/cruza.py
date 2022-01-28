@@ -1,3 +1,5 @@
+import random
+
 from mutacion import *
 def ordenar(individuos):
     auxC = []
@@ -47,6 +49,23 @@ def salaApareamiento(limSupX, limSupY, aX, aY, deltaX, deltaY, lista,numBitsX,nu
 
 def cruza(aX, aY, deltaX, deltaY, indA,indB,numBitsX, numBitsY):
     nombre = indA[0]+indB[0]
+    if(len(nombre) > 10):
+        lista = list(nombre)
+
+        new = []
+        while len(new) < 10:
+            i = random.randint(0, len(lista) - 1)
+
+            new.append(lista.pop(i))
+
+        str = ''
+
+        for i in new:
+
+            str = str + i
+        nombre = str
+
+
     puntoCruzaX = random.randint(0, numBitsX)
     genesXResultado = cruzarGenes(indA[1][0],indB[1][0],puntoCruzaX,numBitsX)
     iteracionX = binarioToDecimal(genesXResultado)
