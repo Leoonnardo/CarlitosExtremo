@@ -67,8 +67,7 @@ def definirFenotipo(a, i, delta):
 
 def definirAptitud(x, y):
     # breakpoint()
-    return cos(x) * cos(y) * (e**(-(x ** 2)-(y ** 2)))
-
+    return cos(x) * cos(y) * (e ** ( -(x**2)- (y**2) ))
 
 def generarGen(numBits):
     # breakpoint()
