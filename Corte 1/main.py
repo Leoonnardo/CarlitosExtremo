@@ -10,13 +10,8 @@ def iniciarGenes(intervaloX1, intervaloX2, intervaloY1, intervaloY2, resolucion,
 
     resolucion = float(resolucion)
     numGeneraciones = int(numGeneraciones)
-    x1aux = float(intervaloX1)
-    x2aux = float(intervaloX2)
-    y1aux = float(intervaloY1)
-    y2aux = float(intervaloY2)
-    
-    x = [x1aux, x2aux]
-    y = [y1aux, y2aux]
+    x = [float(intervaloX1), float(intervaloX2)]
+    y = [float(intervaloY1), float(intervaloY2)]
 
     RX = abs(x[1] - x[0])
     RY = abs(y[1] - y[0])
@@ -74,10 +69,10 @@ def iniciarGenes(intervaloX1, intervaloX2, intervaloY1, intervaloY2, resolucion,
         print("Promedio: ", promedioAptitud)
         print("-----------------------------------\n")
     
-    print("Generaciones: ", generaciones)
-    print("Mejores generaciones: ", mejoresGeneracion)
-    print("Peores generaciones: ", peoresGeneracion)
-    print("Promedio: ", promedioGeneracion)
+    #print("Generaciones: ", generaciones)
+    #print("Mejores generaciones: ", mejoresGeneracion)
+    #print("Peores generaciones: ", peoresGeneracion)
+    #print("Promedio: ", promedioGeneracion)
     
     figure = plt.figure(figsize=(15,10))
     ax = plt.subplot(1,1,1)

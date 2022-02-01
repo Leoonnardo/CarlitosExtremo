@@ -27,14 +27,9 @@ def salaApareamiento(limSupX, limSupY, aX, aY, deltaX, deltaY, lista,numBitsX,nu
     for i in range(len(lista)):
         if(i != 0):
             nuevo = cruza(aX, aY, deltaX, deltaY, individuoApto, lista[i], numBitsX, numBitsY)
-
-            #breakpoint()
-            if((nuevo[2][0] <= limSupX) and (nuevo[2][1] <= limSupY)):
-                nuevos.append(nuevo)
-            nuevo2 = cruza(aX, aY, deltaX, deltaY, individuoApto, lista[i], numBitsX, numBitsY)
-            #breakpoint()
-            if ((nuevo2[2][0] <= limSupX) and (nuevo2[2][1] <= limSupY)):
-                nuevos.append(nuevo2)
+            nuevos.append(nuevo)
+            nuevo2 = cruza(aX, aY, deltaX, deltaY, lista[i], individuoApto, numBitsX, numBitsY)
+            nuevos.append(nuevo2)
 
 
     nuevos = salaSeguimientoMutacion(aX, aY, deltaX, deltaY, limSupX, limSupY, probMutaInd, probMutaGen, nuevos)
